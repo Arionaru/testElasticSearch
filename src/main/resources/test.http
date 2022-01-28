@@ -1,0 +1,69 @@
+### создание простого индекса
+PUT http://localhost:9200/documents
+content-type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "name": {"type": "text"},
+      "annotation": {"type": "text"}
+    }
+  }
+}
+
+### получить индекс
+GET http://localhost:9200/documents
+
+###
+PUT http://localhost:8080/search/documents
+content-type: application/json
+
+{
+  "name": "Это первый документ",
+  "annotation": "Этот документ был когда-то создан для того, чтобы протестировать elasticSearch первый раз"
+}
+
+###
+GET http://localhost:8080/search/byName?name=Это первый документ
+content-type: application/json
+
+###
+GET http://localhost:8080/search/byName?name=второй
+content-type: application/json
+
+###
+GET http://localhost:8080/search/byAnnotation?annotation=создан
+content-type: application/json
+
+###
+GET http://localhost:8080/search/byAnnotation?annotation=документ
+content-type: application/json
+
+###
+PUT http://localhost:8080/search/documents
+content-type: application/json
+
+{
+  "name": "Это второй документ",
+  "annotation": "Документ номек два для тестирования"
+}
+
+###
+PUT http://localhost:8080/search/documents
+content-type: application/json
+
+{
+  "name": "Заголовок",
+  "annotation": "Описание"
+}
+
+###
+GET http://localhost:8080/search/byPhrase?text=это документ
+content-type: application/json
+
+###
+GET http://localhost:8080/search/multi?text=описание
+content-type: application/json
+
+
+
